@@ -1,3 +1,4 @@
+import MainScores
 import MemoryGame, GuessGame, CurrencyRouletteGame, Score
 
 choose_game_output = 'Please choose a game to play:\n1. Memory Game - a sequence of numbers will appear for 1 second and ' \
@@ -30,6 +31,7 @@ def load_game():
             is_won = CurrencyRouletteGame.play()
         if is_won:
             Score.add_score(game_difficulty)
+        MainScores.app.run()
     return
 
 def get_integer_input(from_number, to_number, message):

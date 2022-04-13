@@ -1,26 +1,12 @@
+from flask import render_template
 from Score import read_score_from_file
+from flask import Flask
+
+app = Flask(__name__)
+@app.route('/')
 def score_server():
     try:
-        score = read_score_from_file()
+        file, score = read_score_from_file()
+        return render_template('score.html', score=str(score))
     except Exception as e:
-        return f"""
-            <html>
-            <head>
-            <title>Scores Game</title>
-            </head>
-            <body>
-            <body>
-            <h1><div id="score" style="color:red">{e}</div></h1>
-            </body>
-            </html>        
-        """
-    return f"""
-        <html>
-        <head>
-        <title>Scores Game</title>
-        </head>
-        <body>
-        <h1>The score is <div id="score">{score}</div></h1>
-        </body>
-        </html>    
-    """
+        return render_template('error.html', error=e)
